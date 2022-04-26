@@ -1,0 +1,23 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col bg-dark text-white p-2">
+			<a class="navbar-brand" routerLink="/">TMA Ticket Client</a>
+			<div class="float-right">
+				<button *ngIf="!authInfo.authenticated" class="btn btn-primary" routerLink="/login">Sign in</button>
+				<button *ngIf="authInfo.authenticated" class="btn btn-warning" (click)="logout()">Sign out</button>
+				<button *ngIf="!authInfo.authenticated" class="btn btn-success ml-1" routerLink="/register">Sign up</button>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-3 p-2">
+			<button class="btn btn-block btn-outline-primary" routerLink="/">Home</button>
+			<button *ngIf="authInfo.isAdmin" class="btn btn-block btn-outline-primary" routerLink="/admin/equipments">Equipments</button>
+			<button *ngIf="authInfo.isAdmin" class="btn btn-block btn-outline-primary" routerLink="/admin/users">Users</button>
+			<button *ngIf="authInfo.isAdmin" class="btn btn-block btn-outline-danger" routerLink="/admin">Admin</button>
+		</div>
+		<div class="col-9 p-2">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+</div>

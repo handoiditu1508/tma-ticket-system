@@ -1,0 +1,50 @@
+<h1>Register</h1>
+<div class="bg-danger p-2 text-white" *ngIf="submitted && form.invalid">
+	There are problems with the form
+	<ul>
+		<li *ngFor="let error of form.getFormValidationMessages()">
+			{{error}}
+		</li>
+	</ul>
+</div>
+<div class="bg-danger mt-2 p-2 text-center text-white" *ngIf="errorMessage">
+	{{errorMessage}}
+</div>
+<form class="col-4" novalidate [formGroup]="form" (ngSubmit)="register(form)">
+	<div class="form-group">
+		<label>{{form.getCustomControl('username').label}}</label>
+		<input class="form-control" type="text" placeholder="Your username" formControlName="username"
+			name="username" />
+		<ul class="text-danger list-unstyled"
+			*ngIf="(submitted || form.controls['username'].dirty) && form.controls['username'].invalid">
+			<li *ngFor="let error of form.getCustomControl('username').getValidationMessages()">{{error}}</li>
+		</ul>
+	</div>
+	<div class="form-group">
+		<label>{{form.getCustomControl('password').label}}</label>
+		<input class="form-control" type="password" placeholder="Password" formControlName="password" name="password" />
+		<ul class="text-danger list-unstyled"
+			*ngIf="(submitted || form.controls['password'].dirty) && form.controls['password'].invalid">
+			<li *ngFor="let error of form.getCustomControl('password').getValidationMessages()">{{error}}</li>
+		</ul>
+	</div>
+	<div class="form-group">
+		<label>{{form.getCustomControl('email').label}}</label>
+		<input class="form-control" type="email" placeholder="Example@gmail.com" formControlName="email" name="email" />
+		<ul class="text-danger list-unstyled"
+			*ngIf="(submitted || form.controls['email'].dirty) && form.controls['email'].invalid">
+			<li *ngFor="let error of form.getCustomControl('email').getValidationMessages()">{{error}}</li>
+		</ul>
+	</div>
+	<div class="form-group">
+		<label>{{form.getCustomControl('roleIds').label}}</label>
+		<select multiple class="form-control" formControlName="roleIds" name="roleIds">
+			<option *ngFor="let i of getObjectKeys(roles)" [value]="i">{{roles[i]}}</option>
+		</select>
+		<ul class="text-danger list-unstyled"
+			*ngIf="(submitted || form.controls['roleIds'].dirty) && form.controls['roleIds'].invalid">
+			<li *ngFor="let error of form.getCustomControl('roleIds').getValidationMessages()">{{error}}</li>
+		</ul>
+	</div>
+	<input type="submit" value="Register" class="btn btn-primary" />
+</form>

@@ -1,0 +1,81 @@
+<div class="bg-danger mt-2 p-2 text-center text-white" *ngIf="errorMessage != null">
+	{{errorMessage}}
+</div>
+<form novalidate #form="ngForm" (ngSubmit)="save(form)">
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Id</label>
+		<div class="col-auto">
+			<input type="text" class="form-control" [value]="model.id" placeholder="Your Id" readonly />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Name</label>
+		<div class="col-auto">
+			<input type="text" class="form-control" #name="ngModel" name="name" [(ngModel)]="model.name"
+				placeholder="Your name" required />
+			<ul class="text-danger list-unstyled" *ngIf="name.dirty && name.invalid">
+				<li *ngIf="name.errors.required">
+					Name is required
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Description</label>
+		<div class="col-auto">
+			<textarea class="form-control" #description="ngModel" name="description" [(ngModel)]="model.description"
+				rows="3" required></textarea>
+			<ul class="text-danger list-unstyled" *ngIf="description.dirty && description.invalid">
+				<li *ngIf="description.errors.required">
+					Description is required
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div *ngIf="editing" class="form-group row">
+		<label class="col-sm-2 col-form-label">Owner's Id</label>
+		<div class="col-auto">
+			<input type="number" class="form-control" #userId="ngModel" name="userId" [(ngModel)]="model.userId"
+				pattern="^[0-9]*$" />
+				<ul class="text-danger list-unstyled" *ngIf="userId.dirty && userId.invalid">
+					<li *ngIf="userId.errors.pattern">
+						Ower's Id must be a number
+					</li>
+				</ul>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Equipment Type</label>
+		<div class="col-auto">
+			<select class="form-control custom-select" #typeId="ngModel" name="typeId" [(ngModel)]="model.typeId" required>
+				<option *ngFor="let i of getObjectKeys(types)" [value]="i">{{types[i]}}</option>
+			</select>
+			<ul class="text-danger list-unstyled" *ngIf="typeId.dirty && typeId.invalid">
+				<li *ngIf="typeId.errors.required">
+					Type is required
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Equipment Status</label>
+		<div class="col-auto">
+			<select class="form-control custom-select" #statusId="ngModel" name="statusId" [(ngModel)]="model.statusId" required>
+				<option *ngFor="let i of getObjectKeys(statuses)" [value]="i">{{statuses[i]}}</option>
+			</select>
+			<ul class="text-danger list-unstyled" *ngIf="statusId.dirty && statusId.invalid">
+				<li *ngIf="statusId.errors.required">
+					Status is required
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<input class="btn btn-primary" type="submit" value="Save" />
+
+</form>

@@ -1,0 +1,20 @@
+-login
+
+-view item
+-add item
+-remove item
+-edit item(include assign item)
+
+-sign out
+-sign up
+
+-view user
+
+-handle form error
+-local storage token
+-redirect if not login
+-redirect to login if token is expired
+-show error page if not admin
+-guard
+-hide admin element(redesign UI)
+-filter item
